@@ -18,10 +18,14 @@
 		 <div class="card mx-auto"style="width: 18rem;">
                         <div class="card-body mx-auto">
 				<form action="/signup"method="POST">
+				<!-- si existe el mensaje que me lo muestre para que el usuario sepa en que falla   -->
+					<% if(signupMessage ) { %>
+						<p><%= signupMessage  %></p>
+					<% } %>
 					<label>Correo</label>
 					<input type="email"class="form-control"name="email"placeholder="Correo Electronico">
 					<label>Nombre</label>
-					<input type="text"class="form-control"name="name"placeholder="Nombre Completo">
+					<input type="text"class="form-control"name="last"placeholder="Nombre Completo">
 					<label>Contraseña</label>
 					<input type="password"class="form-control"name="password"placeholder="Ingrese Contraseña">
 					<br><button class="btn btn-primary btn-block">Registrarse</button>

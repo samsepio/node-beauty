@@ -1,19 +1,43 @@
 const express=require('express');
 const User=require('../model/database');
 const Image=require('../model/database2');
+const {unlink}=require('fs-extra');
+const passport=require('passport');
+const path=require('path');
 const router=express.Router();
 
 router.get('/',(req,res,next)=>{
 	res.render('index');
 });
+router.get('/signin',(req,res,next)=>{
+	res.render('signin');
+});
+router.post('/signin',passport.authenticate('local-signin',{
+	successRedirect: '/beauty',
+	failureRedirect: '/signin',
+	passReqToCallback: true
+}));
 router.get('/signup',(req,res,next)=>{
 	res.render('signup');
 });
-router.post('/signup',async(req,res,next)=>{
-	const user = new User(req.body);
-	await user.save();
-	console.log(user);
-	res.redirect('/profile');
+router.post('/signup',passport.authenticate('local-signup',{
+	successRedirect: '/profile',
+	failureRedirect: '/signup',
+	passReqToCallback: true
+}));
+router.get('/delete/:id',async(req,res,next)=>{
+	const {id} = req.params;
+	const image = await Image.findByIdAndDelete(id);
+	await unlink(path.resolve('./src/public'+image.path));
+	res.redirect('/beauty');
+});
+router.get('/image/:id',async(req,res,next)=>{
+	const {id} = req.params;
+	const image = await Image.findById(id);
+	console.log(image);
+	res.render('perfil',{
+		image
+	});
 });
 router.get('/profile',(req,res,next)=>{
 	res.render('profile');
