@@ -5,6 +5,7 @@
                 <meta name="author"content="walter">
                 <title>beautylevel</title>
                 <link rel="stylesheet"href="/css/main.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
         </head>
@@ -23,8 +24,19 @@
 				    <h5 class="card-title"><%= image.title %></h5>
 				    <p class="card-text"><%= image.description  %></p>
 				    <p class="card-text"><%= format(image.created_at) %></p>
+
 				    <a href="/delete/<%= image._id%>"class="btn btn-danger btn-block">Eliminar Imagen</a>
 			    </div>
+			    <br><h5>Comenta la Imagen</h5>
+			    <form action="/comentary/<%= image._id %>"method="POST">
+				    <label>Nombre</label>
+				    <input type="text"class="form-control"name="name"placeholder="Nombre Completo">
+				    <label>Comentario</label>
+				    <textarea class="form-control"name="comentary"placeholder="Comentario"></textarea>
+				    <br> <button class="btn btn-info" id="btn-toggle-comment">
+					    <i class="fa fa-comments-o"></i>Publicar Comentario
+				    </button>
+			    </form>
 		    </div>
 	    </div>
 	</div>

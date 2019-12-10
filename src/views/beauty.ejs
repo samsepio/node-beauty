@@ -5,6 +5,7 @@
                 <meta name="author"content="walter">
                 <title>beautylevel</title>
                 <link rel="stylesheet"href="/css/main.css">
+		 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
         </head>
@@ -24,13 +25,25 @@
 						  <div class="card-body">
 							  <h5 class="card-title"><%= image.title %></h5>
 							  <p class="card-text"><%= image.description %></p>
-							  <p class="card-text"><%= format(image.created_at)  %></p>
-							  <a class="btn btn-primary"href="/image/<%= image._id  %>">Ver Mas</a>
+							  <p class="card-text"><%= format(image.created_at)  %>
+							  <i class="fas fa-clock"></i>
+							  </p>
+							  <a class="btn btn-warning btn-block"href="/image/<%= image._id  %>">
+								  <i class="fas fa-question-circle"></i>Ver Mas
+							  </a>
+							  <a class="btn btn-block <%= image.status ? 'btn-dark':'btn-success'  %>" href="/like/<%= image._id %>">
+								  <i class="fas fa-thumbs-up"></i>Me Gusta
+							  </a>
+							  <a class="btn btn-primary btn-block"href="/comentary/<%= image._id  %>">
+								  <i class="fas fa-comment-dots"></i>Comentarios
+                                                          </a>
+                                                          </a>
 						  </div>
 					  </div>
-					  <% }) %>
+
 				  </div>
 			  </div>
+					  <% }) %>
 		  </div>
 	</body>
 </html>

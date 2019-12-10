@@ -1,6 +1,7 @@
 const express=require('express');
 const User=require('../model/database');
 const Image=require('../model/database2');
+const Comentary=require('../model/database3');
 const {unlink}=require('fs-extra');
 const passport=require('passport');
 const path=require('path');
@@ -11,6 +12,12 @@ router.get('/',(req,res,next)=>{
 });
 router.get('/signin',(req,res,next)=>{
 	res.render('signin');
+});
+router.post('/comentary/:id',async(req,res,next)=>{
+	const comentary = new Comentary(req.body);
+	await comentary.save();
+	console.log(comentary);
+	res.redirect('/image/5dee9f4f24e27a1e288af2b9');
 });
 router.post('/signin',passport.authenticate('local-signin',{
 	successRedirect: '/beauty',
@@ -29,6 +36,19 @@ router.get('/delete/:id',async(req,res,next)=>{
 	const {id} = req.params;
 	const image = await Image.findByIdAndDelete(id);
 	await unlink(path.resolve('./src/public'+image.path));
+	res.redirect('/beauty');
+});
+router.get('/comentary/:id',async(req,res,next)=>{
+	const comentarys = await Comentary.find();
+	console.log(comentarys);
+	res.render('comentarios',{
+		comentarys
+	});
+});
+router.get('/like/:id',async(req,res,next)=>{
+	const image = await Image.findById(req.params.id);
+	image.status = !image.status;
+	await image.save();
 	res.redirect('/beauty');
 });
 router.get('/image/:id',async(req,res,next)=>{

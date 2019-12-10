@@ -9,6 +9,10 @@ const imageSchema = Schema({
 	originalname:{type: String},
 	mimetype:{type: String},
 	size:{type: Number},
+	status:{
+		default:false,
+		type:Boolean
+	},
 	created_at: {type: Date, default: Date.now()}
 
 });
